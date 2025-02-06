@@ -1,12 +1,14 @@
 # Lab 3 Module 4
 import math
 
-result = 0
+show_menu = True
+result = 0.0
 iterations = 0
 total_sum = 0
 
 while True:
-    print(f'Current result: {result}\n\nCalculator Menu\n---------------\n0. Exit Program\n1. Addition\n2. Subtraction\n3. Multiplication\n4. Division\n5. Exponentiation\n6. Logarithm\n7. Display Average\n')
+    if show_menu:
+        print(f'Current Result: {result}\n\nCalculator Menu\n---------------\n0. Exit Program\n1. Addition\n2. Subtraction\n3. Multiplication\n4. Division\n5. Exponentiation\n6. Logarithm\n7. Display Average\n')
     selection = int(input('Enter Menu Selection: '))
     if selection in range(0,7):
         if selection == 0:
@@ -35,7 +37,8 @@ while True:
         elif selection == 4: # division logic
             if float(op2) == 0:
                 print('Error: invalid input!')
-                break
+                show_menu = False
+                continue
             elif op1 == 'RESULT':
                 result = result / float(op2)
             elif op2 == 'RESULT':
@@ -56,10 +59,16 @@ while True:
     elif selection == 7: # averages logic
         if iterations >= 1:
             average = total_sum / iterations
-            print(f'Sum of calculations: {result}\nNumber of calculations: {iterations}\nAverage of calculations: {average:.2f}')
-            iterations -= 1
+            print(f'Sum of calculations: {total_sum}\nNumber of calculations: {iterations}\nAverage of calculations: {average:.2f}\n')
+        else:
+            print('Error: No calculations yet to average!')
+        show_menu = False
+        continue
     else:
-        print('Invalid selection.')
-        break
+        print('Error: Invalid selection!')
+        show_menu = False
+        continue
+
     total_sum += result
     iterations += 1
+    show_menu = True
